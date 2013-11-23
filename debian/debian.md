@@ -377,5 +377,23 @@ CRON_DAILY_RUN  : yes - vérification quotidienne de votre machine via un cron
 
 **[[⬆]](#sommaire)**
 
+## <a name='logs'>Lecture de logs</a>
 
+- **Installation**
 
+```
+apt-get install logwatch 
+```
+
+- **Configuration**
+
+```
+nano /usr/share/logwatch/default.conf/logwatch.conf
+```
+
+```
+MailTo : mail
+Il va normalement s’exécuter tous les jours (ls -l /etc/cron.daily/ | grep logwatch pour s’en assurer).
+```
+
+**[[⬆]](#sommaire)**
