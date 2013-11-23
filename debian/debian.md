@@ -132,3 +132,14 @@ date
 ```
 
 **[[⬆]](#sommaire)**
+
+
+
+## <a name='useful'>Liste de package utile à installer</a>
+
+```
+apt-get install p7zip
+```
+
+**[[⬆]](#sommaire)**
+
