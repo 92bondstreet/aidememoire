@@ -103,3 +103,32 @@ On crée avec PuttyTray la session de connexion sans sauvergarder le password.
 ```
 
 **[[⬆]](#sommaire)**
+
+
+## <a name='hour'>Heure du réseau</a>
+
+- **Afficher la date et l'heure du système**
+
+```
+date
+```
+
+- **Installer ntp**
+
+```
+apt-get install ntp
+
+Ensuite on indique un serveur ndp : http://www.pool.ntp.org/
+Pour la France : http://www.pool.ntp.org/zone/fr
+
+nano /etc/ntp.conf 
+	server 0.fr.pool.ntp.org
+	server 1.fr.pool.ntp.org
+	server 2.fr.pool.ntp.org
+	server 3.fr.pool.ntp.org
+/etc/init.d/ntp restart
+
+date
+```
+
+**[[⬆]](#sommaire)**
