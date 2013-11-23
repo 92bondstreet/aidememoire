@@ -5,7 +5,7 @@
 ## <a name='sommaire'>Sommaire</a>
 
   1. [Première connexion](#start)
-  1. [Protection initiale](#)
+  1. [Protection initiale](#first_protec)
   1. [Heure du réseau](#hour)
   1. [Installation de package utile](#useful)
   1. [Suppression des services inutiles](#unuseful)
@@ -36,9 +36,6 @@ On crée une connexion dite de rescue sur le port 22 (par défaut avant de le mo
 	newuser/password
 ```
 
-
-Session - dedibox : IP + port 9281 + connexion type SSH + auto-login newuser
-
 - **Mac**
 
 On utilise la commande ssh pour se connecter en SSH
@@ -56,3 +53,53 @@ apt-get upgrade
 
 **[[⬆]](#sommaire)**
   	
+  	
+## <a name='first_protec'>Protection initiale avant toute chose</a>
+
+- **Modifier le mot de passe root**
+
+```
+passwd root
+```
+
+- **Installer un editeur** : vi ou nano
+
+- **Configuration SSH**
+
+Mofification du fichier ***/etc/ssh/sshd_config***
+
+```
+netstat -a pour vérifier si le port n'est pas pris
+	
+	Port 1234                  # Changer le port par défaut
+	PermitRootLogin no         # Ne pas permettre de login en root
+	Protocol 2                 # Protocole v2
+	AllowUsers newuser         # N'autoriser qu'un utilisateur
+	
+Redemarrer /etc/init.d/ssh restart
+```
+
+- **windows**
+
+On crée avec PuttyTray la session de connexion sans sauvergarder le password.
+
+```
+1. Menu Session 
+	nom 
+	adresse IP + port 1234 
+2. Menu Connection 
+	type SSH 
+3. Menu Auto-login 
+	newuser
+```
+
+- **On Teste les connections suivantes**
+
+```	
+	root + port 22
+	user + port 22 
+	root + port 1234
+	newuser + port 1234
+```
+
+**[[⬆]](#sommaire)**
