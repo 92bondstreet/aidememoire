@@ -143,3 +143,20 @@ apt-get install p7zip
 
 **[[⬆]](#sommaire)**
 
+## <a name='unuseful'>Suppression des services inutiles</a>
+
+```
+/etc/init.d/portmap stop
+update-rc.d -f portmap remove
+apt-get remove portmap
+
+/etc/init.d/nfs-common stop
+update-rc.d -f nfs-common remove
+
+update-rc.d -f inetd remove
+
+apt-get remove ppp
+```
+
+**[[⬆]](#sommaire)**
+
