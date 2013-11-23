@@ -249,11 +249,75 @@ nano /etc/init.d/firewall
 Excution du fichier
 chmod +x /etc/init.d/firewall
 
-
 Scripts de démarrage
 update-rc.d firewall defaults
 ```
 
+### <a name='portsentry'>Scan de ports</a>
+
+- **Installation**
+
+```
+apt-get install portsentry
+```
+
+- **Configuration des adresses IP safe**
+
+```
+nano /etc/portsentry/portsentry.ignore.static
+	
+	# Vous même
+	127.0.0.1/32
+	88.191.164.206
+```
+
+- **Configuration**
+
+```
+nano /etc/portsentry/portsentry.conf
+
+		# These port bindings are *ignored* for Advanced Stealth Scan Detection Mode.
+		# Use these if you just want to be aware:
+		TCP_PORTS="1,11,15,79,111,119,143,540,635,1080,1524,2000,5742,6667,12345,12346,20034,27665,31337,32771,32772,32773,32774,40421,49724,54320"
+		UDP_PORTS="1,7,9,69,161,162,513,635,640,641,700,37444,34555,31335,32770,32771,32772,32773,32774,31337,54321"
+		ADVANCED_PORTS_TCP="1024"
+		ADVANCED_PORTS_UDP="1024"
+		# By specifying ports here PortSentry will simply not respond to
+		# incoming requests, in effect PortSentry treats them as if they are
+		# actual bound daemons. The default ports are ones reported as
+		# problematic false alarms and should probably be left alone for
+		# all but the most isolated systems/networks.
+		ADVANCED_EXCLUDE_TCP="113,139"
+		ADVANCED_EXCLUDE_UDP="520,138,137,67"
+		# This file is made from /etc/portsentry/portsentry.ignore.static
+		IGNORE_FILE="/etc/portsentry/portsentry.ignore"
+		HISTORY_FILE="/var/lib/portsentry/portsentry.history"
+		BLOCKED_FILE="/var/lib/portsentry/portsentry.blocked"
+		RESOLVE_HOST = "0"
+		BLOCK_UDP="1"
+		BLOCK_TCP="1"
+		KILL_ROUTE="/sbin/route add -host $TARGET$ reject"
+		KILL_ROUTE="/sbin/iptables -I INPUT -s $TARGET$ -j DROP && /sbin/iptables -I INPUT -s $TARGET$ -m limit --limit 3/minute --limit-burst 5 -j LOG --log-level DEBUG --log-prefix 'Portsentry: dropping: '"
+		#KILL_HOSTS_DENY="ALL: $TARGET$ : DENY"
+		SCAN_TRIGGER="0"
+		#PORT_BANNER="** UNAUTHORIZED ACCESS PROHIBITED *** YOUR CONNECTION ATTEMPT HAS BEEN LOGGED. GO AWAY."
+```
+
+- **On relance**
+
+```
+/etc/init.d/portsentry restart
+```
+
+- **Crédits**
+
+```
+https://www.isalo.org/wiki.debian-fr/Portsentry
+http://monblog.system-linux.net/blog/2011/05/08/securisation-dune-machine-avec-portsentry-et-fail2ban-plus-libapache2-mod-evasive/
+```
+
+
 **[[⬆]](#sommaire)**
+
 
 
