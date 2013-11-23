@@ -160,3 +160,100 @@ apt-get remove ppp
 
 **[[⬆]](#sommaire)**
 
+## <a name='protection'>Protection</a>
+
+### <a name='firewall'>Firewall : on filtre le trafic</a>
+
+- **edition**
+
+```
+nano /etc/init.d/firewall
+```
+
+- **modification**
+
+```
+	#!/bin/sh
+
+	# Vider les tables actuelles
+	iptables -t filter -F
+
+	# Vider les règles personnelles
+	iptables -t filter -X
+
+	# Interdire toute connexion entrante et sortante
+	iptables -t filter -P INPUT DROP
+	iptables -t filter -P FORWARD DROP
+	iptables -t filter -P OUTPUT DROP
+
+	# ---
+
+	# Ne pas casser les connexions etablies
+	iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+	iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+	# Autoriser loopback
+	iptables -t filter -A INPUT -i lo -j ACCEPT
+	iptables -t filter -A OUTPUT -o lo -j ACCEPT
+
+	# ICMP (Ping)
+	iptables -t filter -A INPUT -p icmp -j ACCEPT
+	iptables -t filter -A OUTPUT -p icmp -j ACCEPT
+
+	# ---
+
+	# SSH In
+	iptables -t filter -A INPUT -p tcp --dport numero_du_port -j ACCEPT
+
+	# SSH Out
+	iptables -t filter -A OUTPUT -p tcp --dport numero_du_port -j ACCEPT
+
+	# DNS In/Out
+	iptables -t filter -A OUTPUT -p tcp --dport 53 -j ACCEPT
+	iptables -t filter -A OUTPUT -p udp --dport 53 -j ACCEPT
+	iptables -t filter -A INPUT -p tcp --dport 53 -j ACCEPT
+	iptables -t filter -A INPUT -p udp --dport 53 -j ACCEPT
+
+	# NTP Out
+	iptables -t filter -A OUTPUT -p udp --dport 123 -j ACCEPT
+
+	# HTTP + HTTPS Out
+	iptables -t filter -A OUTPUT -p tcp --dport 80 -j ACCEPT
+	iptables -t filter -A OUTPUT -p tcp --dport 443 -j ACCEPT
+	iptables -t filter -A OUTPUT -p tcp --dport autre_port -j ACCEPT
+	iptables -t filter -A OUTPUT -p tcp --dport encore_autre_port -j ACCEPT
+
+	# HTTP + HTTPS In
+	iptables -t filter -A INPUT -p tcp --dport 80 -j ACCEPT
+	iptables -t filter -A INPUT -p tcp --dport 443 -j ACCEPT
+	iptables -t filter -A INPUT -p tcp --dport autre_port -j ACCEPT
+	iptables -t filter -A INPUT -p tcp --dport encore_autre_port -j ACCEPT
+	iptables -t filter -A INPUT -p tcp --dport 8443 -j ACCEPT
+
+	# FTP Out
+	iptables -t filter -A OUTPUT -p tcp --dport 20:21 -j ACCEPT
+
+	# FTP In
+	modprobe ip_conntrack_ftp # ligne facultative avec les serveurs OVH
+	iptables -t filter -A INPUT -p tcp --dport 20:21 -j ACCEPT
+	iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+	# Autorise le PING 
+	iptables -t filter -A INPUT -p icmp -j ACCEPT 
+	iptables -t filter -A OUTPUT -p icmp -j ACCEPT
+```
+
+- **redémarrage**
+
+```
+Excution du fichier
+chmod +x /etc/init.d/firewall
+
+
+Scripts de démarrage
+update-rc.d firewall defaults
+```
+
+**[[⬆]](#sommaire)**
+
+
