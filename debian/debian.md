@@ -253,6 +253,8 @@ Scripts de démarrage
 update-rc.d firewall defaults
 ```
 
+**[[⬆]](#sommaire)**
+
 ### <a name='portsentry'>Scan de ports</a>
 
 - **Installation**
@@ -316,6 +318,62 @@ https://www.isalo.org/wiki.debian-fr/Portsentry
 http://monblog.system-linux.net/blog/2011/05/08/securisation-dune-machine-avec-portsentry-et-fail2ban-plus-libapache2-mod-evasive/
 ```
 
+**[[⬆]](#sommaire)**
+
+
+### <a name='fail2ban'>Authentifications répétées</a>
+
+- **Installation**
+
+```
+apt-get install fail2ban
+```
+
+- **Configuration**
+	
+```
+	cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+	nano /etc/fail2ban/jail.local
+```
+
+```
+Du MAIL 
+
+destmail => mails d’alerte de la part de fail2ban
+```
+
+```
+Du SSH 
+
+ctrl+w => chercher [ssh]
+port : indiquer le port
+```
+
+- **Sauver et activer**
+
+```
+/etc/init.d/fail2ban restart
+```
+
+**[[⬆]](#sommaire)**
+
+### <a name='rkhunter'>Backdoors</a>
+
+- **Installation**
+
+```
+apt-get install rkhunter
+```
+
+- **Configuration**
+
+```
+nano /etc/default/rkhunter
+```
+```
+REPORT_EMAIL : mail
+CRON_DAILY_RUN  : yes - vérification quotidienne de votre machine via un cron
+```
 
 **[[⬆]](#sommaire)**
 
