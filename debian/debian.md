@@ -397,3 +397,39 @@ Il va normalement s’exécuter tous les jours (ls -l /etc/cron.daily/ | grep lo
 ```
 
 **[[⬆]](#sommaire)**
+
+## <a name='ftp'>Serveur FTP</a>
+
+- **Installation**
+
+```
+apt-get install proftpd
+```
+
+- **Configuration**
+
+```
+nano /etc/proftpd/proftpd.conf
+```
+	ServerName nom 							# nom du serveur FTP
+	TimeoutIdle secondes       				# Le délai, en secondes, au bout duquel un client est automatiquement déconnecté s'il n'est plus actif sur le serveur FTP.
+	UseIPv6 off 							# Ne pas utiliser IPv6 si ce n'est pas nécessaire
+	DefaultRoot ~							# Le répertoire de destination par défaut des utilisateurs est leur propre home directory.
+	IdentLookups off						# Désactive l'identification distante
+	RequireValidShell off					# Permet la connexion des utilisateurs qui ne possèdent pas d'accès shell (cas de ce tutoriel)
+	IdentLookups off						# Désactive l'identification distante
+	# ServerIdent on "FTP Server ready." 	# Message minimaliste affiché à la connexion
+	ShowSymlinks off						# Ne pas afficher les liens symboliques
+	# AllowStoreRestart On  				# Autoriser la reprise d'un upload de fichier (resuming)
+	# AllowRetrieveRestart on             	# Autoriser la reprise d'un téléchargement de fichier
+
+Si vous ne parvenez pas à vous connecter, une parade consiste à désactiver le module SQL postgres, en commentant avec # la ligne correspondante dans le fichier /etc/proftpd/modules.conf : `#LoadModule mod_sql_postgres.c`
+
+- **On redemarre**
+
+```
+/etc/init.d/proftpd restart
+```
+
+**[[⬆]](#sommaire)**
+
