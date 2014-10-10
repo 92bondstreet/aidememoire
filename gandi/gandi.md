@@ -25,7 +25,7 @@ Url correspondante : /admin/domain/zone/list
 ## <a name='zone'>Configuration de la zone</a>
 
 Nom | Type | Valeur | TTL
---- | --- | ---
+--- | ---- | ------ | ---
 www | A | xx.xxx.xx.xxx | 3h
 @ | A | xx.xxx.xx.xxx | 3h
 
