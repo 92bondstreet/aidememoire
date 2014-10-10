@@ -16,8 +16,8 @@
   	1. [Backdoors](#rkhunter)
   1. [Lecture de Logs](#logs)
   1. [Serveur FTP](#ftp)
-  
-  
+
+
 ## <a name='start'>Première connexion</a>
 
 - **Windows**
@@ -27,12 +27,12 @@ On utilise PuttyTray pour la connexion SSH : <a href='https://puttytray.goeswher
 On crée une connexion dite de rescue sur le port 22 (par défaut avant de le modifier)
 
 ```
-1. Menu Session 
-	nom-rescue 
-	adresse IP + port 22 
-2. Menu Connection 
-	type SSH 
-3. Menu Auto-login 
+1. Menu Session
+	nom-rescue
+	adresse IP + port 22
+2. Menu Connection
+	type SSH
+3. Menu Auto-login
 	newuser/password
 ```
 
@@ -49,11 +49,11 @@ ssh nom_utilisateur@adresse_ip -p numero_de_port
 ```
 apt-get update
 apt-get upgrade
-```  	
+```
 
 **[[⬆]](#sommaire)**
-  	
-  	
+
+
 ## <a name='first_protec'>Protection initiale avant toute chose</a>
 
 - **Modifier le mot de passe root**
@@ -70,12 +70,12 @@ Mofification du fichier ***/etc/ssh/sshd_config***
 
 ```
 netstat -a pour vérifier si le port n'est pas pris
-	
+
 	Port 1234                  # Changer le port par défaut
 	PermitRootLogin no         # Ne pas permettre de login en root
 	Protocol 2                 # Protocole v2
 	AllowUsers newuser         # N'autoriser qu'un utilisateur
-	
+
 Redemarrer /etc/init.d/ssh restart
 ```
 
@@ -84,20 +84,20 @@ Redemarrer /etc/init.d/ssh restart
 On crée avec PuttyTray la session de connexion sans sauvergarder le password.
 
 ```
-1. Menu Session 
-	nom 
-	adresse IP + port 1234 
-2. Menu Connection 
-	type SSH 
-3. Menu Auto-login 
+1. Menu Session
+	nom
+	adresse IP + port 1234
+2. Menu Connection
+	type SSH
+3. Menu Auto-login
 	newuser
 ```
 
 - **On Teste les connections suivantes**
 
-```	
+```
 	root + port 22
-	user + port 22 
+	user + port 22
 	root + port 1234
 	newuser + port 1234
 ```
@@ -121,7 +121,7 @@ apt-get install ntp
 Ensuite on indique un serveur ndp : http://www.pool.ntp.org/
 Pour la France : http://www.pool.ntp.org/zone/fr
 
-nano /etc/ntp.conf 
+nano /etc/ntp.conf
 	server 0.fr.pool.ntp.org
 	server 1.fr.pool.ntp.org
 	server 2.fr.pool.ntp.org
@@ -238,8 +238,8 @@ nano /etc/init.d/firewall
 	iptables -t filter -A INPUT -p tcp --dport 20:21 -j ACCEPT
 	iptables -t filter -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-	# Autorise le PING 
-	iptables -t filter -A INPUT -p icmp -j ACCEPT 
+	# Autorise le PING
+	iptables -t filter -A INPUT -p icmp -j ACCEPT
 	iptables -t filter -A OUTPUT -p icmp -j ACCEPT
 ```
 
@@ -267,7 +267,7 @@ apt-get install portsentry
 
 ```
 nano /etc/portsentry/portsentry.ignore.static
-	
+
 	# Vous même
 	127.0.0.1/32
 	88.191.164.206
@@ -330,20 +330,20 @@ apt-get install fail2ban
 ```
 
 - **Configuration**
-	
+
 ```
 	cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 	nano /etc/fail2ban/jail.local
 ```
 
 ```
-Du MAIL 
+Du MAIL
 
 destmail => mails d’alerte de la part de fail2ban
 ```
 
 ```
-Du SSH 
+Du SSH
 
 ctrl+w => chercher [ssh]
 port : indiquer le port
@@ -382,7 +382,7 @@ CRON_DAILY_RUN  : yes - vérification quotidienne de votre machine via un cron
 - **Installation**
 
 ```
-apt-get install logwatch 
+apt-get install logwatch
 ```
 
 - **Configuration**
@@ -432,4 +432,3 @@ Si vous ne parvenez pas à vous connecter, une parade consiste à désactiver le
 ```
 
 **[[⬆]](#sommaire)**
-
