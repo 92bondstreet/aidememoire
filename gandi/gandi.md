@@ -20,6 +20,8 @@ Url correspondante : /admin/domain/zone/list
 
 - Créér une zone puis la nommmer
 
+**[[⬆]](#sommaire)**
+
 ## <a name='zone'>Configuration de la zone</a>
 
 Nom | Type | Valeur | TTL
@@ -27,6 +29,7 @@ Nom | Type | Valeur | TTL
 www | A | xx.xxx.xx.xxx | 3h
 @ | A | xx.xxx.xx.xxx | 3h
 
+**[[⬆]](#sommaire)**
 
 ## <a name='domaine'>Association du nom de domaine</a>
 
@@ -38,4 +41,6 @@ www | A | xx.xxx.xx.xxx | 3h
 Zone active:  XXXXXX Changer
 ```
 
-En cliquand sur changer, vous pouvez alors renseigner le nom de la zone précedemment créée.
+En cliquant sur changer, vous pouvez alors renseigner le nom de la zone précedemment créée.
+
+**[[⬆]](#sommaire)**
