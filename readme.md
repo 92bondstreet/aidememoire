@@ -12,4 +12,4 @@ La philosophie est *Less is more* : il ne s'agit pas de détailler toutes les é
   1. [Git](#git)
   1. [Nginx](#nginx)
   1. [Node.js](#nodejs)
-  1. [Travis](#travis)
+  1. [Travis](/travis/travis.md)
